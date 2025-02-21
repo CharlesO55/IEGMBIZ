@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public struct TreeData : IGrowable
+public struct FixtureData : IGrowable
 {
     [Tooltip("Current growth in seconds")]
     public int CurrentGrowTime;
@@ -23,11 +23,11 @@ public struct TreeData : IGrowable
 }
 
 [RequireComponent(typeof(Collider2D))]
-public class Tree : MonoBehaviour, ITappable
+public class Fixture : MonoBehaviour, ITappable
 {
-    public TreeData Data => data;
+    public FixtureData Data => data;
     
-    [SerializeField] TreeData data;
+    [SerializeField] FixtureData data;
     [SerializeField] List<Sprite> sprites;
     
     int cycle;

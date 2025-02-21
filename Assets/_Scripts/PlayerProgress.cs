@@ -33,9 +33,12 @@ public class PlayerProgress : MonoBehaviour
 
     public void Add(int value)
     {
-        data.CurrencyAmount += value;
+        data.CurrencyAmount = Mathf.Clamp(data.CurrencyAmount + value, 0, 100000);
         onCurrencyAdd?.Invoke();
     }
+
+    public bool CanBuy(int cost) => cost <= data.CurrencyAmount;
+    
 
     public void SpawnCurrency(Vector3 position)
     {

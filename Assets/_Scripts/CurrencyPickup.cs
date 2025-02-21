@@ -9,7 +9,6 @@ class CurrencyPickup : MonoBehaviour, ITappable
     public void onUserInput(TouchArgs e)
     {
         PlayerProgress.I.Add(value);
-
         Destroy(this.gameObject);
     }
 }

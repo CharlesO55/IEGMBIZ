@@ -46,7 +46,7 @@ public class Animal : MonoBehaviour, IHoldable
 
         foreach(RaycastHit2D hit in hits)
         {
-            if(hit.collider.TryGetComponent<Tree>(out Tree t))
+            if(hit.collider.TryGetComponent<Fixture>(out Fixture t))
             {
                 if (t.Data.IsMature())
                 {

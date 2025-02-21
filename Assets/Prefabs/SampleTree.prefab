@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9099704011891161648}
   - component: {fileID: 3437327757894188185}
   - component: {fileID: 7676401097841676539}
-  - component: {fileID: 4610646527179605572}
+  - component: {fileID: 1448485592843208251}
   m_Layer: 0
   m_Name: SampleTree
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1666666, y: 0.36101082, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,11 +75,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 1682045431, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   - {fileID: 398009932, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
   - {fileID: 1372454377, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
   - {fileID: 1682045431, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
---- !u!61 &4610646527179605572
+--- !u!61 &1448485592843208251
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,14 +141,14 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.85714287, y: 2.77}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 1
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.85714287, y: 2.77}
   m_EdgeRadius: 0
