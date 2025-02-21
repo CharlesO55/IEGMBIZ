@@ -29,12 +29,12 @@ public class PlayerProgress : MonoBehaviour
 
     [SerializeField] GameObject currencyPrefab;
 
-    public UnityEvent onCurrencyAdd;
+    public UnityEvent<int> onCurrencyAdd;
 
     public void Add(int value)
     {
         data.CurrencyAmount = Mathf.Clamp(data.CurrencyAmount + value, 0, 100000);
-        onCurrencyAdd?.Invoke();
+        onCurrencyAdd?.Invoke(data.CurrencyAmount);
     }
 
     public bool CanBuy(int cost) => cost <= data.CurrencyAmount;
@@ -46,4 +46,7 @@ public class PlayerProgress : MonoBehaviour
         /*if(o.TryGetComponent<CurrencyPickup>(out CurrencyPickup c)){
         }*/
     }
+
+
+    public int Leaves => data.CurrencyAmount;
 }

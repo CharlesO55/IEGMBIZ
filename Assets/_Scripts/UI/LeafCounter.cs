@@ -1,18 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LeafCounter : MonoBehaviour
 {
-    private int leaves = 0;
+    [SerializeField] TextMeshProUGUI UI_text;
+    
 
-    private void Start()
+    private void Awake()
     {
-        //PlayerProgress.I.onCurrencyAdd += addLeaves();
+        RegisterToPlayerProgress();        
     }
 
-    private void addLeaves()
+    void RegisterToPlayerProgress()
     {
-        //this.leaves = PlayerProgress.I.
+        if (!PlayerProgress.I)
+        {
+            Invoke("RegisterToPlayerProgress", 0.1f);
+        }
+        else
+        {
+            PlayerProgress.I.onCurrencyAdd.AddListener(UpdateCounter);
+            UpdateCounter(PlayerProgress.I.Leaves);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        PlayerProgress.I.onCurrencyAdd.RemoveListener(UpdateCounter);
+    }
+
+    private void UpdateCounter(int value)
+    {
+        this.UI_text.text = value.ToString();
     }
 }

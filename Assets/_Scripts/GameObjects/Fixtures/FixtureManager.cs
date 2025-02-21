@@ -22,6 +22,7 @@ public class FixtureManager : MonoBehaviour
             Destroy(gameObject);
     }
     #endregion
+
     public void BuildFixture(Vector3 position, GameObject prefab)
     {
         GameObject o = Instantiate(prefab, position, Quaternion.identity, transform);
@@ -31,19 +32,12 @@ public class FixtureManager : MonoBehaviour
         }
     }
 
-    public Fixture RequestMatureFixture()
-    {
-        return fixtures.Where(t => t.Data.IsMature()).First();
-    }
-
-
-
     private void Update()
     {
+        // CALL THIS VIA BUTTON
         ToggleLotsPurchaseMode(test);
     }
-
-    void ToggleLotsPurchaseMode(bool enable)
+    public void ToggleLotsPurchaseMode(bool enable)
     {
         foreach(FixtureLot l in lots)
         {
