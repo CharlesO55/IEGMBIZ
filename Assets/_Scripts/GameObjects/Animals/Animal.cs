@@ -22,6 +22,7 @@ public class Animal : MonoBehaviour, IHoldable
     #endregion 
     public void onUserInput(TouchArgs e)
     {
+        CancelInvoke("Live");
         MoveToTouchPos(e);
 
         if (e.isTouchEnd)
