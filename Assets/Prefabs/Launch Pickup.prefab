@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9191422068792163079}
   - component: {fileID: 2129249644150393882}
   m_Layer: 0
-  m_Name: PickupCoin
+  m_Name: Launch Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

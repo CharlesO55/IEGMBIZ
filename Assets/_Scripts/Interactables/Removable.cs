@@ -31,7 +31,10 @@ public class Removable : Tappable
     {
         Vector3 pos = this.transform.position;
         pos.z--;
-        PlayerProgress.I.SpawnCurrency(pos, leafReward);
+
+        if(leafReward > 0)
+            PlayerProgress.I.SpawnCurrency(pos, leafReward);
+        
         Destroy(gameObject);
     }
 }
