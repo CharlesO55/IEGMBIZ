@@ -14,6 +14,8 @@ public struct FixtureData : IGrowable
     [Tooltip("Position spawned in")]
     public Vector3 Pos;
 
+    
+
     public void IncrementProgress(int t)
     {
         CurrentGrowTime = Mathf.Clamp(CurrentGrowTime + t, 0, TotalGrowTime);
@@ -23,7 +25,7 @@ public struct FixtureData : IGrowable
 }
 
 [RequireComponent(typeof(Collider2D))]
-public class Fixture : MonoBehaviour, ITappable
+public class Fixture : MonoBehaviour, ITappable, IBurnable
 {
     public FixtureData Data => data;
     
@@ -32,6 +34,11 @@ public class Fixture : MonoBehaviour, ITappable
     
     int cycle;
 
+    public void Burn(int damage)
+    {
+        data.IncrementProgress(-damage);
+        UpdateSprite();
+    }
 
     public void onUserInput(TouchArgs e)
     {

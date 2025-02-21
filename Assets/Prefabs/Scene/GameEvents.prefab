@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6816818261506427947}
   - component: {fileID: 4749294376187753511}
+  - component: {fileID: 6428127457479459510}
   m_Layer: 0
   m_Name: GameEvents
   m_TagString: Untagged
@@ -47,3 +48,17 @@ MonoBehaviour:
   swirlingLeaf: {fileID: 8697486330562644535, guid: 1750c5fd55b8e0343ba3304867c9c8ad, type: 3}
   breezeAmount: 10
   triggerTime: 10
+--- !u!114 &6428127457479459510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808013080974807875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed425d36f945564ba0710cd028c0077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePrefab: {fileID: 1198944992808997729, guid: 710a926487d4f6a449178c2844fc20df, type: 3}
+  wildfireChance: 0.1
