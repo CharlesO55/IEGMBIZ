@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerProgress : MonoBehaviour
 {
@@ -28,9 +29,12 @@ public class PlayerProgress : MonoBehaviour
 
     [SerializeField] GameObject currencyPrefab;
 
+    public UnityEvent onCurrencyAdd;
+
     public void Add(int value)
     {
         data.CurrencyAmount += value;
+        onCurrencyAdd?.Invoke();
     }
 
     public void SpawnCurrency(Vector3 position)
