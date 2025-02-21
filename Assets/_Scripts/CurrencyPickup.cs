@@ -11,4 +11,12 @@ class CurrencyPickup : MonoBehaviour, ITappable
         PlayerProgress.I.Add(value);
         Destroy(this.gameObject);
     }
+
+    private void Start()
+    {
+        if(TryGetComponent<LaunchEffect>(out LaunchEffect c)){
+            c.Launch();
+        }
+    }
+    public int Value { get { return value; } set { this.value = value; } }
 }

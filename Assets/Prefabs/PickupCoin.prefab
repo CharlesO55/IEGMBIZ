@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5670892354476410343}
   - component: {fileID: 6467470673229889901}
   - component: {fileID: 9191422068792163079}
+  - component: {fileID: 2129249644150393882}
   m_Layer: 0
   m_Name: PickupCoin
   m_TagString: Untagged
@@ -144,3 +145,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &2129249644150393882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6766068776733454501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc787b6699ba1004ba9321fb2f12f3b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchHeight: 2
+  speed: 3
+  gravity: 10
+  xDir: 1

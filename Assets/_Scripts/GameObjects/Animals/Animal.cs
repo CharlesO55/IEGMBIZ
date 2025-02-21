@@ -12,6 +12,7 @@ public class Animal : MonoBehaviour, IHoldable
     {
         public int CurrentStayTime;
         public int TotalStayTime;
+        public int LeafRewardAmount;
         public void IncrementProgress(int t)
         {
             CurrentStayTime = Mathf.Clamp(CurrentStayTime + t, 0, TotalStayTime);
@@ -76,7 +77,7 @@ public class Animal : MonoBehaviour, IHoldable
     {
         Vector3 pos = this.transform.position;
         pos.z--;
-        PlayerProgress.I.SpawnCurrency(pos);
+        PlayerProgress.I.SpawnCurrency(pos, data.LeafRewardAmount);
         Destroy(gameObject);
     }
 }

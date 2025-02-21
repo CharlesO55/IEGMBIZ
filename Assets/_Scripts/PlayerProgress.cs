@@ -40,11 +40,12 @@ public class PlayerProgress : MonoBehaviour
     public bool CanBuy(int cost) => cost <= data.CurrencyAmount;
     
 
-    public void SpawnCurrency(Vector3 position)
+    public void SpawnCurrency(Vector3 position, int reward)
     {
         GameObject o = Instantiate(currencyPrefab, position, Quaternion.identity, transform);
-        /*if(o.TryGetComponent<CurrencyPickup>(out CurrencyPickup c)){
-        }*/
+        if(o.TryGetComponent<CurrencyPickup>(out CurrencyPickup c)){
+            c.Value = reward;
+        }
     }
 
 
