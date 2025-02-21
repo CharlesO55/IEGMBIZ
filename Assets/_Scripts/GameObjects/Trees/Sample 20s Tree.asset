@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518a2ee37c7e4e44d8cafcea14701003, type: 3}
+  m_Name: Sample 20s Tree
+  m_EditorClassIdentifier: Assembly-CSharp::SO_TreeData
+  Template:
+    currentGrowTime: 0
+    totalGrowTime: 20
+    pos: {x: 0, y: 0, z: 0}
+  Sprites:
+  - {fileID: -1607754540, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
+  - {fileID: 398009932, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
+  - {fileID: 1372454377, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
+  - {fileID: 1682045431, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
+  - {fileID: -32621843, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}
+  - {fileID: 554421735, guid: e3553b8a255414840aec673a6f0f2e2e, type: 3}

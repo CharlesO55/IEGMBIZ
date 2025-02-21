@@ -69,12 +69,14 @@ namespace systems
             if (c.phase == InputActionPhase.Started)
             {
                 state = STATE.TAP;
+                touchArgs.isTouchEnd = false;
                 touchArgs.startPos = touchPosition.ReadValue<Vector2>();
             }
 
             // ON TOUCH END
             else if (c.phase == InputActionPhase.Canceled)
             {
+                touchArgs.isTouchEnd = true;
                 // BROADCAST IF IT'S A SWIPE OR TAP
                 // (HOLD WAS ALREADY BROADCASTED WHILE HELD)
                 if (state != STATE.HOLD)
