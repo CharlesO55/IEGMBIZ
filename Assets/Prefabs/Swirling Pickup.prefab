@@ -48,9 +48,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5670892354476410343, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670892354476410343, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670892354476410343, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6766068776733454501, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
       propertyPath: m_Name
-      value: PickupCoin Swirl Variant
+      value: Swirling Pickup
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2129249644150393882, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
@@ -82,3 +94,4 @@ MonoBehaviour:
   amplitude: 2
   frequency: 2
   lifetime: 10
+  destroyOnFinish: 1
