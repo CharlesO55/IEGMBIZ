@@ -20,8 +20,6 @@ namespace components.controllables
             }
 
 
-            //RaycastHit[] hits = Physics2D.RaycastAll(Camera.main.ScreenPointToRay(e.startPos), 500);
-
             Ray ray = Camera.main.ScreenPointToRay(e.startPos);
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, 500);
             foreach (RaycastHit2D h in hits)

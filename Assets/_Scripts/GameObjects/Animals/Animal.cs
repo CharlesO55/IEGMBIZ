@@ -23,6 +23,8 @@ public class Animal : MonoBehaviour, IHoldable
     #endregion 
     public void onUserInput(TouchArgs e)
     {
+        Debug.Log(e.currPos);
+
         CancelInvoke("Live");
         MoveToTouchPos(e);
 

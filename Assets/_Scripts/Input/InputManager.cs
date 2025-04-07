@@ -6,11 +6,6 @@ namespace systems
 {
     public class InputManager : MonoBehaviour
     {
-        #region INPUT ACTIONS
-        [SerializeField] InputActionAsset scheme;
-        InputAction touchPosition;
-        #endregion
-
         TouchArgs touchArgs;
 
         enum STATE
@@ -22,107 +17,96 @@ namespace systems
         }
         STATE state;
 
-        [Tooltip("Exceeding will trigger Hold")]
-        [SerializeField] float holdTimeThreshold = 0.5f;
-        [Tooltip("Exceeding will trigger swipe")]
-        [SerializeField] float swipeDistanceThreshold = 300;
 
-
+        
+        [SerializeField] InputActionAsset inputMap;
+        [SerializeField] InputActionReference tapAction;  // Quick tap
+        [SerializeField] InputActionReference moveAction;
+        [SerializeField] InputActionReference holdAction;
 
         #region LIFECYCLE
         private void Awake()
         {
-            scheme.Enable();
-            touchPosition = scheme.FindAction("Position");
+            inputMap.Enable();
 
-            scheme.FindAction("State").started += OnState;
-            scheme.FindAction("State").canceled += OnState;
+            tapAction.action.performed += TapHandle;    // First tap -> swipe -> hold
+
+            moveAction.action.performed += MoveHandle;  // Shift to 
+
+            holdAction.action.performed += HoldHandle;  // Shift to Hold when triggered
+
+            holdAction.action.canceled += Release;
         }
 
-
-        void Update()
+        private void OnDestroy()
         {
-            if (state == STATE.NONE)
-                return;
+            inputMap.Enable();
 
-            touchArgs.currPos = touchPosition.ReadValue<Vector2>();
-            touchArgs.timePressed += Time.deltaTime;
+            tapAction.action.performed -= TapHandle;    // First tap -> swipe -> hold
 
-            switch (state)
-            {
-                case STATE.TAP:
-                case STATE.SWIPE:
-                    if (touchArgs.timePressed > holdTimeThreshold)
-                        state = STATE.HOLD;
-                    break;
-                case STATE.HOLD:
-                    BroadcastToControllable();
-                    break;
-            }
+            moveAction.action.performed -= MoveHandle;  // Shift to 
+
+            holdAction.action.performed -= HoldHandle;  // Shift to Hold when triggered
+
+            holdAction.action.canceled -= Release;
         }
+
         #endregion
 
-        #region METHODS
-        void OnState(InputAction.CallbackContext c)
+        void Release(InputAction.CallbackContext c)
         {
-            // MARK AS NEW TOUCH START
-            if (c.phase == InputActionPhase.Started)
+            Debug.Log("release");
+
+            state = STATE.NONE;
+            touchArgs.isTouchEnd = true;
+
+            touchArgs.hit = IControllable.Raycast<IHoldable>(touchArgs, out IHoldable component);
+            component?.onUserInput(touchArgs);
+
+
+            touchArgs = default;
+        }
+
+        void TapHandle(InputAction.CallbackContext c)
+        {
+            touchArgs = new TouchArgs(c.ReadValue<Vector2>());
+
+            touchArgs.hit = IControllable.Raycast<ITappable>(touchArgs, out ITappable component);
+
+            component?.onUserInput(touchArgs);
+        }
+        void HoldHandle(InputAction.CallbackContext c)
+        {
+            Debug.Log("Hold");
+
+            // Overwrite the startpos and switch state
+            touchArgs.startPos = c.ReadValue<Vector2>();
+            touchArgs.hit = IControllable.Raycast<IHoldable>(touchArgs, out IHoldable component);
+
+            if (component != null)
             {
-                state = STATE.TAP;
-                touchArgs.isTouchEnd = false;
-                touchArgs.startPos = touchPosition.ReadValue<Vector2>();
-            }
-
-            // ON TOUCH END
-            else if (c.phase == InputActionPhase.Canceled)
-            {
-                touchArgs.isTouchEnd = true;
-                // BROADCAST IF IT'S A SWIPE OR TAP
-                // (HOLD WAS ALREADY BROADCASTED WHILE HELD)
-                if (state != STATE.HOLD)
-                {
-                    if (Vector2.Distance(touchArgs.startPos, touchArgs.currPos) > swipeDistanceThreshold)
-                        state = STATE.SWIPE;
-                    else
-                        state = STATE.TAP;
-                }
-
-                BroadcastToControllable();
-
-
-                state = STATE.NONE;
-                touchArgs = new();
+                state = STATE.HOLD;
+                component?.onUserInput(touchArgs);
             }
         }
 
-
-        void BroadcastToControllable()
+        void MoveHandle(InputAction.CallbackContext c)
         {
-            this.touchArgs.direction = touchArgs.startPos - touchArgs.currPos;
+            touchArgs.direction = c.ReadValue<Vector2>();
 
-            switch (state)
+            if (state == STATE.HOLD)
             {
-                case STATE.TAP:
-                    {
-                        touchArgs.hit = IControllable.Raycast<ITappable>(touchArgs, out ITappable component);
-                        component?.onUserInput(touchArgs);
-                    }
-                    break;
-                case STATE.SWIPE:
-                    {
-                        touchArgs.hit = IControllable.Raycast<ISwipeable>(touchArgs, out ISwipeable component);
-                        component?.onUserInput(touchArgs);
-                    }
-                    break;
-                case STATE.HOLD:
-                    {
-                        touchArgs.hit = IControllable.Raycast<IHoldable>(touchArgs, out IHoldable component);
-                        component?.onUserInput(touchArgs);
-                    }
-                    break;
+                touchArgs.currPos += touchArgs.direction;
+
+                touchArgs.hit = IControllable.Raycast<IHoldable>(touchArgs, out IHoldable component);
+                component?.onUserInput(touchArgs);
             }
-            Debug.Log($"Action was : {state}");
+
+            else
+            {
+                touchArgs.hit = IControllable.Raycast<ISwipeable>(touchArgs, out ISwipeable component);
+                component?.onUserInput(touchArgs);
+            }
         }
-        #endregion
     }
 }

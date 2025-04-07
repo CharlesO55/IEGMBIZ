@@ -28,18 +28,27 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""id"": ""61e4305b-abe9-43e0-97f5-b5db06a0611e"",
             ""actions"": [
                 {
-                    ""name"": ""State"",
-                    ""type"": ""Button"",
-                    ""id"": ""e870c584-9ccc-40cc-9c52-19865691623c"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Move"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""84eb20fe-51c3-41b7-99cf-6237ff48a54f"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Position"",
+                    ""name"": ""Hold"",
                     ""type"": ""Value"",
-                    ""id"": ""cbc65618-bea1-4aff-9dc4-f97bbae09d24"",
+                    ""id"": ""0be1cd20-b3f5-4ae5-9458-0dca6ffdfc97"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Tap"",
+                    ""type"": ""Value"",
+                    ""id"": ""359d6ae9-3e7d-4930-b08a-7045de363c55"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -49,45 +58,78 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""268cc015-95b3-4ac3-9f10-d7ddabb6ba83"",
-                    ""path"": ""<Touchscreen>/Press"",
-                    ""interactions"": ""Press"",
+                    ""id"": ""06b1d9df-daab-41f5-a608-aff5b59a3508"",
+                    ""path"": ""<Touchscreen>/touch0/delta"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""State"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""0c6cf0cf-a034-4fbf-a320-b060594f9b37"",
+                    ""name"": ""One Modifier"",
+                    ""id"": ""1f89b611-c157-4f1c-9445-63b78be9f1d4"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""fe0d1d97-dcd6-4786-94bd-d24cc0294178"",
                     ""path"": ""<Mouse>/press"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""State"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""a4881531-307b-4cb7-bc28-36fa9334a4c2"",
-                    ""path"": ""<Touchscreen>/position"",
+                    ""name"": ""binding"",
+                    ""id"": ""5d2e817d-69ad-4d06-a969-dd441bb66b91"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Position"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1671b254-901f-4c1c-bed0-093e6a58e7d1"",
+                    ""path"": ""<Touchscreen>/touch0/position"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""eab0bd66-9f59-459d-9e25-a2a632fad5a3"",
+                    ""id"": ""c1772219-86eb-4491-880d-78d4e467d156"",
+                    ""path"": ""<Touchscreen>/touch0/startPosition"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e22cae6-8e8b-4211-85c6-807760735d41"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Position"",
+                    ""action"": ""Tap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -98,8 +140,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
 }");
         // Screen
         m_Screen = asset.FindActionMap("Screen", throwIfNotFound: true);
-        m_Screen_State = m_Screen.FindAction("State", throwIfNotFound: true);
-        m_Screen_Position = m_Screen.FindAction("Position", throwIfNotFound: true);
+        m_Screen_Move = m_Screen.FindAction("Move", throwIfNotFound: true);
+        m_Screen_Hold = m_Screen.FindAction("Hold", throwIfNotFound: true);
+        m_Screen_Tap = m_Screen.FindAction("Tap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,14 +204,16 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     // Screen
     private readonly InputActionMap m_Screen;
     private List<IScreenActions> m_ScreenActionsCallbackInterfaces = new List<IScreenActions>();
-    private readonly InputAction m_Screen_State;
-    private readonly InputAction m_Screen_Position;
+    private readonly InputAction m_Screen_Move;
+    private readonly InputAction m_Screen_Hold;
+    private readonly InputAction m_Screen_Tap;
     public struct ScreenActions
     {
         private @Controls m_Wrapper;
         public ScreenActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @State => m_Wrapper.m_Screen_State;
-        public InputAction @Position => m_Wrapper.m_Screen_Position;
+        public InputAction @Move => m_Wrapper.m_Screen_Move;
+        public InputAction @Hold => m_Wrapper.m_Screen_Hold;
+        public InputAction @Tap => m_Wrapper.m_Screen_Tap;
         public InputActionMap Get() { return m_Wrapper.m_Screen; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -178,22 +223,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_ScreenActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_ScreenActionsCallbackInterfaces.Add(instance);
-            @State.started += instance.OnState;
-            @State.performed += instance.OnState;
-            @State.canceled += instance.OnState;
-            @Position.started += instance.OnPosition;
-            @Position.performed += instance.OnPosition;
-            @Position.canceled += instance.OnPosition;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Hold.started += instance.OnHold;
+            @Hold.performed += instance.OnHold;
+            @Hold.canceled += instance.OnHold;
+            @Tap.started += instance.OnTap;
+            @Tap.performed += instance.OnTap;
+            @Tap.canceled += instance.OnTap;
         }
 
         private void UnregisterCallbacks(IScreenActions instance)
         {
-            @State.started -= instance.OnState;
-            @State.performed -= instance.OnState;
-            @State.canceled -= instance.OnState;
-            @Position.started -= instance.OnPosition;
-            @Position.performed -= instance.OnPosition;
-            @Position.canceled -= instance.OnPosition;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Hold.started -= instance.OnHold;
+            @Hold.performed -= instance.OnHold;
+            @Hold.canceled -= instance.OnHold;
+            @Tap.started -= instance.OnTap;
+            @Tap.performed -= instance.OnTap;
+            @Tap.canceled -= instance.OnTap;
         }
 
         public void RemoveCallbacks(IScreenActions instance)
@@ -213,7 +264,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public ScreenActions @Screen => new ScreenActions(this);
     public interface IScreenActions
     {
-        void OnState(InputAction.CallbackContext context);
-        void OnPosition(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        void OnHold(InputAction.CallbackContext context);
+        void OnTap(InputAction.CallbackContext context);
     }
 }
