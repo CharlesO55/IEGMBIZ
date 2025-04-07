@@ -9,6 +9,8 @@ class CurrencyPickup : MonoBehaviour, ITappable
     public void onUserInput(TouchArgs e)
     {
         PlayerProgress.I.Add(value);
+
+        PopupTextSpawner.I.ShowPopup(value.ToString(), this.transform.position);
         Destroy(this.gameObject);
     }
 
