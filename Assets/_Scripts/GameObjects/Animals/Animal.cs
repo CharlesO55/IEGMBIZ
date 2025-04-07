@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.VFX;
 
 [RequireComponent(typeof(Collider2D))]
-public class Animal : MonoBehaviour, IHoldable, ITappable
+public class Animal : MonoBehaviour, IHoldable
 {
     #region DATA
     [System.Serializable]
@@ -45,11 +45,6 @@ public class Animal : MonoBehaviour, IHoldable, ITappable
             {
                 Invoke("Live", 1);
             }
-        }
-
-        else if (data.IsMature())
-        {
-            Leave();
         }
     }
 
@@ -100,16 +95,8 @@ public class Animal : MonoBehaviour, IHoldable, ITappable
         effect.Play();
 
         GetComponent<SpriteRenderer>().sprite = happySprite;
-    }
 
-
-    
-    public void Leave()
-    {
-        Vector3 pos = this.transform.position;
-        pos.z--;
-        PlayerProgress.I.SpawnCurrency(pos, data.LeafRewardAmount);
-            
-        LeanTween.moveLocalY(gameObject, 50, 1).setEase(LeanTweenType.easeInOutElastic).setDestroyOnComplete(true);
+        GetComponent<ReadyCollect>().IsMature = true;
+        this.enabled = false;
     }
 }

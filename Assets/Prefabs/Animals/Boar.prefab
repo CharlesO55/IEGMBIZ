@@ -32,6 +32,10 @@ PrefabInstance:
       propertyPath: data.LeafRewardAmount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4181497475226070782, guid: 59379cb9efb010b4ba930b7923e316be, type: 3}
+      propertyPath: LeafRewardAmount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7242679217637602295, guid: 59379cb9efb010b4ba930b7923e316be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
