@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using components.controllables;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.VFX;
 
 [RequireComponent(typeof(Collider2D))]
-public class Animal : MonoBehaviour, IHoldable
+public class Animal : MonoBehaviour, IHoldable, ITappable
 {
     #region DATA
     [System.Serializable]
@@ -30,6 +31,9 @@ public class Animal : MonoBehaviour, IHoldable
 
     [SerializeField] VisualEffect effect;
 
+    [SerializeField] Sprite neutralSprite;
+    [SerializeField] Sprite happySprite;
+
     public void onUserInput(TouchArgs e)
     {
         CancelInvoke("Live");
@@ -39,9 +43,13 @@ public class Animal : MonoBehaviour, IHoldable
         {
             if (TryAttachToClosestTree())
             {
-                effect.Play();
                 Invoke("Live", 1);
             }
+        }
+
+        else if (data.IsMature())
+        {
+            Leave();
         }
     }
 
@@ -76,14 +84,7 @@ public class Animal : MonoBehaviour, IHoldable
     void Live()
     {
         data.IncrementProgress(1);
-
-        if (data.GetProgress() > 95)
-        {
-            effect.enabled = true;
-            effect.Play();
-            Invoke("StopPlaying", 1);
-        }
-
+        
         if (!data.IsMature())
             Invoke("Live", 1);
         else
@@ -92,16 +93,23 @@ public class Animal : MonoBehaviour, IHoldable
         }
     }
 
-    void StopPlaying()
-    {
-        effect.Stop();
-    }
 
     void OnMature()
+    {
+        effect.enabled = true;
+        effect.Play();
+
+        GetComponent<SpriteRenderer>().sprite = happySprite;
+    }
+
+
+    
+    public void Leave()
     {
         Vector3 pos = this.transform.position;
         pos.z--;
         PlayerProgress.I.SpawnCurrency(pos, data.LeafRewardAmount);
-        Destroy(gameObject);
+            
+        LeanTween.moveLocalY(gameObject, 50, 1).setEase(LeanTweenType.easeInOutElastic).setDestroyOnComplete(true);
     }
 }

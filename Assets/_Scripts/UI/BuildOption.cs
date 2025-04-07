@@ -20,11 +20,11 @@ public class BuildOption : MonoBehaviour, IPointerClickHandler
     {
         if (!PlayerProgress.I.CanBuy(leafCost))
         {
-            bg.color = new Color(196f / 255f, 255f / 255f, 210f / 255f); ;
+            bg.color = Color.gray;
         }
         else
         {
-            bg.color = Color.gray;
+            bg.color = new Color(196f / 255f, 255f / 255f, 210f / 255f); ;
         }
     }
 
@@ -34,7 +34,7 @@ public class BuildOption : MonoBehaviour, IPointerClickHandler
             return;
 
         BuildMenu.I.SelectBuild(this);
-        bg.color = Color.yellow;
+        bg.color = Color.white;
     }
 
     public GameObject Buy()
