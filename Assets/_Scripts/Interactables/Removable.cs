@@ -18,10 +18,10 @@ public class Removable : Tappable
     public override void onUserInput(TouchArgs e)
     {
         tapsRequired--;
-
+        
         rattle.Shake();
 
-        if(tapsRequired == 0)
+        if (tapsRequired == 0)
         {
             this.Remove();
         }

@@ -29,7 +29,8 @@ public class Animal : MonoBehaviour, IHoldable
     #endregion 
     [SerializeField] AnimalData data;
 
-    [SerializeField] VisualEffect effect;
+    [SerializeField] VisualEffect cryingVFX;
+    [SerializeField] VisualEffect loveVFX;
 
     [SerializeField] Sprite neutralSprite;
     [SerializeField] Sprite happySprite;
@@ -43,6 +44,7 @@ public class Animal : MonoBehaviour, IHoldable
         {
             if (TryAttachToClosestTree())
             {
+                cryingVFX.Stop();
                 Invoke("Live", 1);
             }
         }
@@ -91,8 +93,8 @@ public class Animal : MonoBehaviour, IHoldable
 
     void OnMature()
     {
-        effect.enabled = true;
-        effect.Play();
+        loveVFX.enabled = true;
+        loveVFX.Play();
 
         GetComponent<SpriteRenderer>().sprite = happySprite;
 

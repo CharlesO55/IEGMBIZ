@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class RattleEffect : MonoBehaviour
 {
-    [SerializeField] public float rattleStrength = 0.1f;  // How far the object moves during the rattle
-    public float rattleDuration = 1f;    // Duration of each rattle burst
+    [SerializeField] public float rattleStrength = 1;  // How far the object moves during the rattle
+
+    [SerializeField] float rattlePeriod = 0.05f;
+    [SerializeField] int rattleTimes = 4;
+
     private Vector3 originalPosition;
-    private float rattleTimer = 0f;
 
     void Start()
     {
@@ -15,10 +17,12 @@ public class RattleEffect : MonoBehaviour
 
     public void Shake()
     {
-        StartCoroutine(DoShake());
+        LeanTween.alpha(gameObject, 0, 0.05f).setLoopPingPong(4);
+        LeanTween.moveLocalX(gameObject, originalPosition.x + rattleStrength, rattlePeriod)
+                .setLoopPingPong(rattleTimes);
     }
 
-    IEnumerator DoShake()
+    /*IEnumerator DoShake()
     {
         while (rattleTimer < rattleDuration)
         {
@@ -32,5 +36,5 @@ public class RattleEffect : MonoBehaviour
 
         rattleTimer = 0f;
         transform.position = originalPosition;
-    }
+    }*/
 }
