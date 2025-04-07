@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using components.controllables;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(Collider2D))]
 public class Animal : MonoBehaviour, IHoldable
@@ -17,10 +18,18 @@ public class Animal : MonoBehaviour, IHoldable
         {
             CurrentStayTime = Mathf.Clamp(CurrentStayTime + t, 0, TotalStayTime);
         }
+
+        public float GetProgress()
+        {
+            return CurrentStayTime / TotalStayTime;
+        }
         public bool IsMature() => CurrentStayTime >= TotalStayTime;
     }
-    [SerializeField] AnimalData data;
     #endregion 
+    [SerializeField] AnimalData data;
+
+    [SerializeField] VisualEffect effect;
+
     public void onUserInput(TouchArgs e)
     {
         CancelInvoke("Live");
@@ -29,7 +38,10 @@ public class Animal : MonoBehaviour, IHoldable
         if (e.isTouchEnd)
         {
             if (TryAttachToClosestTree())
+            {
+                effect.Play();
                 Invoke("Live", 1);
+            }
         }
     }
 
@@ -65,12 +77,24 @@ public class Animal : MonoBehaviour, IHoldable
     {
         data.IncrementProgress(1);
 
+        if (data.GetProgress() > 95)
+        {
+            effect.enabled = true;
+            effect.Play();
+            Invoke("StopPlaying", 1);
+        }
+
         if (!data.IsMature())
             Invoke("Live", 1);
         else
         {
             OnMature();
         }
+    }
+
+    void StopPlaying()
+    {
+        effect.Stop();
     }
 
     void OnMature()
