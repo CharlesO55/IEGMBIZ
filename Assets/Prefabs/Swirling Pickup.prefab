@@ -64,6 +64,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swirling Pickup
       objectReference: {fileID: 0}
+    - target: {fileID: 9191422068792163079, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
+      propertyPath: m_Size.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9191422068792163079, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
+      propertyPath: m_Size.y
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2129249644150393882, guid: d87fff8508867de4a9cce0062031a5da, type: 3}
     m_RemovedGameObjects: []

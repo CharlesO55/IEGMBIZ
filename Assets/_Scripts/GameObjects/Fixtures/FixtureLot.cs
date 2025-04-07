@@ -9,6 +9,7 @@ public class FixtureLot : MonoBehaviour, ITappable
     [SerializeField] GameObject prefab;
     [SerializeField] int leafCost;
 
+    
     SpriteRenderer sRenderer;
     void Awake()
     {
@@ -45,14 +46,6 @@ public class FixtureLot : MonoBehaviour, ITappable
 
     public void onUserInput(TouchArgs e)
     {
-        if (PlayerProgress.I.CanBuy(leafCost))
-        {
-            PlayerProgress.I.Add(-leafCost);
-            FixtureManager.I.BuildFixture(this.transform.position, prefab);
-
-            // ALREADY USED
-            FixtureManager.I.UnregisterLot(this);
-            this.gameObject.SetActive(false);
-        }
+        FindObjectOfType<BuildMenu>(true).OpenMenu(this);
     }
 }

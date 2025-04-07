@@ -10,9 +10,15 @@ public class ExitCounter : MonoBehaviour
 
     [SerializeField] private int timer = 10;
 
-    private void Start()
+    private void OnEnable()
     {
+        Time.timeScale = 0;
         this.StartCoroutine(CountdownCoroutine(this.timer));
+    }
+
+    private void OnDisable()
+    {
+        Time.timeScale = 1;
     }
 
     private IEnumerator CountdownCoroutine(int duration)
@@ -22,7 +28,7 @@ public class ExitCounter : MonoBehaviour
         while (remainingTime > 0)
         {
             counter.text = remainingTime.ToString();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSecondsRealtime(1);
             remainingTime--;
         }
 
