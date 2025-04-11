@@ -6,7 +6,7 @@ using UnityEngine;
 public class ReadyCollect : MonoBehaviour, ITappable
 {
     [SerializeField] int LeafRewardAmount;
-
+    
     public bool IsMature = false;
 
     
@@ -22,6 +22,8 @@ public class ReadyCollect : MonoBehaviour, ITappable
         Vector3 pos = this.transform.position;
         pos.z--;
         PlayerProgress.I.SpawnCurrency(pos, LeafRewardAmount);
+
+
 
         LeanTween.moveLocalY(gameObject, 50, 1).setEase(LeanTweenType.easeInOutElastic).setDestroyOnComplete(true);
     }

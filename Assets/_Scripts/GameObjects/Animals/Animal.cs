@@ -22,7 +22,7 @@ public class Animal : MonoBehaviour, IHoldable
 
         public float GetProgress()
         {
-            return CurrentStayTime / TotalStayTime;
+            return (float)CurrentStayTime / TotalStayTime;
         }
         public bool IsMature() => CurrentStayTime >= TotalStayTime;
     }
@@ -35,6 +35,13 @@ public class Animal : MonoBehaviour, IHoldable
     [SerializeField] Sprite neutralSprite;
     [SerializeField] Sprite happySprite;
 
+    [SerializeField] ProgressBar progressBar;
+
+    private void Start()
+    {
+        progressBar.gameObject.SetActive(false);
+    }
+
     public void onUserInput(TouchArgs e)
     {
         CancelInvoke("Live");
@@ -45,6 +52,10 @@ public class Animal : MonoBehaviour, IHoldable
             if (TryAttachToClosestTree())
             {
                 cryingVFX.Stop();
+
+                progressBar.gameObject.SetActive(true);
+                progressBar.UpdateFill(0);
+
                 Invoke("Live", 1);
             }
         }
@@ -81,7 +92,8 @@ public class Animal : MonoBehaviour, IHoldable
     void Live()
     {
         data.IncrementProgress(1);
-        
+        progressBar.UpdateFill(data.GetProgress());
+
         if (!data.IsMature())
             Invoke("Live", 1);
         else
@@ -95,6 +107,8 @@ public class Animal : MonoBehaviour, IHoldable
     {
         loveVFX.enabled = true;
         loveVFX.Play();
+
+        progressBar.gameObject.SetActive(false);
 
         GetComponent<SpriteRenderer>().sprite = happySprite;
 
